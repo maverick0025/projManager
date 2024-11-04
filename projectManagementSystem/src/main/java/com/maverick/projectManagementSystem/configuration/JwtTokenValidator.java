@@ -27,6 +27,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String jwt = request.getHeader(JwtConstants.JWT_HEADER);
+        System.out.println("-------------------------------------------------");
+        System.out.println(jwt);
         //Bearer jwt
         if(jwt != null){
             jwt = jwt.substring(7); //need to remove it from hardcoding. preferrably use a BEARER constant and get the index from it.

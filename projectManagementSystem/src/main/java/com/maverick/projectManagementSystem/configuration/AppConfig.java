@@ -20,18 +20,22 @@ import java.util.*;
 @EnableWebSecurity
 public class AppConfig {
 
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         http.sessionManagement((session)-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //because we are going to use JWT for each request
                 .authorizeHttpRequests((authorize)-> authorize
-                                                        .requestMatchers("/api/**").authenticated() //every request needs to be authenticated using jwt
+                        .requestMatchers("/api/**").authenticated() //every request needs to be authenticated using jwt
                         .anyRequest().permitAll())
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
+//                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/signup")
+//                        .disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         return http.build();
     }
+
 
     private CorsConfigurationSource corsConfigurationSource() {
         return new CorsConfigurationSource() {
@@ -39,9 +43,9 @@ public class AppConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration ccfg = new CorsConfiguration();
                 ccfg.setAllowedOrigins(Arrays.asList(
-                    "http://localhost:3000",
-                    "http://localhost:5173", //5173 is for React with Vita
-                    "http://localhost:4200" //4200 is for angular
+                        "http://localhost:3000",
+                        "http://localhost:5173", //5173 is for React with Vita
+                        "http://localhost:4200" //4200 is for angular
                         //provide the deployed frontend url also when frontend is launched.
                 ));
 
@@ -50,7 +54,7 @@ public class AppConfig {
                 ccfg.setAllowedHeaders(Collections.singletonList("*"));
                 ccfg.setExposedHeaders(Arrays.asList("Authorization"));
                 ccfg.setMaxAge(3600L);
-                return null;
+                return ccfg;
             }
         };
     }
