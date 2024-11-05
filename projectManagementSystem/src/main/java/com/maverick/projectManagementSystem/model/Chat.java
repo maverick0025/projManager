@@ -1,19 +1,20 @@
 package com.maverick.projectManagementSystem.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-public class Issue {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Chat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private User assignee;
-
-    @ManyToOne
+    @OneToOne
     private Project project;
-
 }
