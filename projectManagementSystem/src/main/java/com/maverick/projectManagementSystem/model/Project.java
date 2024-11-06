@@ -23,7 +23,6 @@ public class Project {
     private String description;
     private String category;
 
-    @ElementCollection
     private List<String> tags = new ArrayList<>();
 
     @JsonIgnore
@@ -33,8 +32,7 @@ public class Project {
     //one user can have many projects
 
     @ManyToOne
-    private User user;
-
+    private User owner;
 
     //one project has multiple issues
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
