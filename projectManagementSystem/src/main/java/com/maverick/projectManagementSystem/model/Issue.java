@@ -25,12 +25,12 @@ public class Issue {
     @ManyToOne
     private User assignee;
 
-    @JsonIgnore
+    @JsonIgnore //to avoid recursion
     @ManyToOne //many issues can be in a single project.
     private Project project;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "issue")
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
 }
