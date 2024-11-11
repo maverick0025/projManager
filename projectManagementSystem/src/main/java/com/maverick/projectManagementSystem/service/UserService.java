@@ -4,13 +4,13 @@ import com.maverick.projectManagementSystem.model.User;
 
 public interface UserService {
 
-    User findUserProfileByJwt(String jwt);
+    User findUserProfileByJwt(String jwt) throws Exception;
 
-    User findUserByEmail(String email);
+    User findUserByEmail(String email) throws Exception;
 
-    User findUserById(Long userId);
+    User findUserById(Long userId) throws Exception;
 
-    User updateUsersProjectSize(User user, int number);
+    User updateUsersProjectSize(User user, int number) throws Exception;
 
 
 }

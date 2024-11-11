@@ -10,12 +10,12 @@ import java.util.*;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-    List<Project> findByOwner(User user); //fetch user created projects
+//    List<Project> findByOwner(User user); //fetch user created projects
 
-    List<Project> findByNameContainingAndTeamContaining(String partialName, User user); //for searching proj
+    List<Project> findByNameContainingAndTeamContains(String partialName, User user); //for searching proj
 
-    @Query("SELECT p FROM PROJECT p join p.team t where t=:user")
-    List<Project> findProjectByTeam(@Param("user") User user);
+//    @Query("SELECT p FROM PROJECT p join p.team t where t=:user")
+//    List<Project> findProjectByTeam(@Param("user") User user);
 
     List<Project> findByTeamContainingOrOwner(User user, User owner);
 
