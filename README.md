@@ -52,6 +52,21 @@ The project aims to develop a web application for project management, enabling u
 - **Email Notification**: Users receive notifications for project-related activities such as new issues, comments, etc.
 
 
+---------------------------------------
+- Spring Boot: Dive deep into backend development with Spring Boot's powerful features.
+- MySQL: Learn the ins and outs of database management using MySQL.
+- React: Discover the flexibility and interactivity of React for frontend development.
+- Tailwind CSS: Experiment with modern UI styling techniques using Tailwind CSS and Shadcn UI Library.
+- Redux: Master state management in complex applications with Redux.
+- React Router DOM: Navigate seamlessly between different sections of your application with React Router DOM.
+- JWT Authentication: Implement secure user authentication mechanisms using JSON Web Tokens.
+- Spring Security: Ensure your applications are secure from various threats with Spring Security.
+- Spring Starter Mail: Learn how to integrate email notifications into your projects with Spring Starter Mail.
+- Razorpay Integration: Gain hands-on experience in integrating payment gateways for subscription-based services.
+
+-------------
+Search and Filter: Develop advanced search and filtering functionalities to enhance user experience.
+Responsive Design: Practice creating responsive designs that adapt seamlessly to various devices and screen sizes.
 
 
 -------------------------------------------------
