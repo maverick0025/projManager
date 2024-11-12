@@ -4,4 +4,4 @@ current feature: project, issues, comment, chat apis
 
 everything before proj invitation: 12 hrs
 project invitation api:1hr
-issue api: 
+issue api: 1hr
