@@ -1,7 +1,7 @@
-13 hrs for custom user signin, signup configuration
-
 current feature: project, issues, comment, chat apis
 
-everything before proj invitation: 12 hrs
+everything before proj invitation (user signin, signup configuration): 12 hrs
 project invitation api:1hr
-issue api: 1hr
+issue api: 1hr 40 min
+
+Cumulative: 13hrs 40 min
