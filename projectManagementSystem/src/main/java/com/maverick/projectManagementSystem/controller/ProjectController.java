@@ -31,7 +31,8 @@ public class ProjectController {
     @Autowired
     private InvitationService invitationService;
 
-    @GetMapping
+//    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Project>> fetchProjects(
             @RequestParam(required = false) String category,
             @RequestParam(required =  false) String tag,

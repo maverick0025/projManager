@@ -5,6 +5,6 @@ project invitation api:1hr
 issue api: 1hr 40 min
 comment api: 35 min
 chat messages services: 30 min
+Subscription service and razorpay payment gateway integration : 1hr 45 min
 
-
-  - Cumulative: 14hrs 45 min
+  - Cumulative: 16hrs 30 min

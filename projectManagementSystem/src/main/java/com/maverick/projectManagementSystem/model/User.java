@@ -3,6 +3,9 @@ package com.maverick.projectManagementSystem.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Setter
+    @Getter
     private String fullName;
     private String email;
     private String password;
@@ -25,43 +30,4 @@ public class User {
 
     private int projectSize; //whenever a project is created by user, by free plan, we can give user can create some 3 or 4 free projects else many with paid plan
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<Issue> getAssignedIssues() {
-        return assignedIssues;
-    }
-
-    public void setAssignedIssues(List<Issue> assignedIssues) {
-        this.assignedIssues = assignedIssues;
-    }
-
-    public int getProjectSize() {
-        return projectSize;
-    }
-
-    public void setProjectSize(int projectSize) {
-        this.projectSize = projectSize;
-    }
 }

@@ -6,6 +6,7 @@ import com.maverick.projectManagementSystem.repository.UserRepository;
 import com.maverick.projectManagementSystem.request.LoginRequest;
 import com.maverick.projectManagementSystem.response.AuthResponse;
 import com.maverick.projectManagementSystem.service.CustomUserDetailsImpl;
+import com.maverick.projectManagementSystem.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -35,6 +36,9 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsImpl customUserDetailsImpl;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     //for registering the first time user
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUser(@RequestBody User user) throws Exception {
@@ -56,6 +60,7 @@ public class AuthController {
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(newUser);
+        subscriptionService.createSubscription(user);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
