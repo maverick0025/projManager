@@ -4,5 +4,7 @@ everything before proj invitation (user signin, signup configuration): 12 hrs
 project invitation api:1hr
 issue api: 1hr 40 min
 comment api: 35 min
+chat messages services: 30 min
 
-  Cumulative: 14hrs 15 min
+
+  - Cumulative: 14hrs 45 min
