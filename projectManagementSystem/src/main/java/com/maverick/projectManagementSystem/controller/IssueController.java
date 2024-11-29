@@ -51,6 +51,7 @@ public class IssueController {
 
             Issue createdIssue = issueService.createIssue(issue, tokenUser);
             IssueDTO issueDTO = new IssueDTO();
+            issueDTO.setTitle(createdIssue.getTitle());
             issueDTO.setDescription(createdIssue.getDescription());
             issueDTO.setId(createdIssue.getId());
             issueDTO.setDueDate(createdIssue.getDueDate());
@@ -60,6 +61,8 @@ public class IssueController {
 //            issueDTO.setProjectId(createdIssue.getProject());
             issueDTO.setStatus(createdIssue.getStatus());
             issueDTO.setTags(createdIssue.getTags());
+            issueDTO.setProject(createdIssue.getProject());
+
 
             return ResponseEntity.ok(issueDTO);
     }

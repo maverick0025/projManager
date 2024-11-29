@@ -7,5 +7,7 @@ comment api: 35 min
 chat messages services: 30 min
 Subscription service and razorpay payment gateway integration : 1hr 45 min
 
-API testing:
-  - Cumulative: 16hrs 30 min
+Backend api testing: 2hr 35 min
+
+
+- Cumulative: 19hrs 05 min

@@ -1,6 +1,7 @@
 package com.maverick.projectManagementSystem.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -22,6 +23,8 @@ public class User {
     @Getter
     private String fullName;
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //password will not be visible in api response
     private String password;
 
     @JsonIgnore

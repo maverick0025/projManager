@@ -1,5 +1,6 @@
 package com.maverick.projectManagementSystem.model.dto;
 
+import com.maverick.projectManagementSystem.model.Project;
 import com.maverick.projectManagementSystem.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class IssueDTO {
     private String priority;
     private LocalDate dueDate;
     private List<String> tags = new ArrayList<>();
+    private Project project;
 
     //Exclude assignee during serialization
     private User assignee;

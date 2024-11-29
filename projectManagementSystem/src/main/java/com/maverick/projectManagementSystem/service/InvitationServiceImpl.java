@@ -1,6 +1,7 @@
 package com.maverick.projectManagementSystem.service;
 
 import com.maverick.projectManagementSystem.model.Invitation;
+import com.maverick.projectManagementSystem.model.Project;
 import com.maverick.projectManagementSystem.repository.InvitationRepository;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,19 @@ public class InvitationServiceImpl implements InvitationService{
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private ProjectService projectService;
+
     @Override
-    public void sendInvitation(String email, Long projectId) throws MessagingException {
+    public void sendInvitation(String email, Long projectId) throws Exception {
 
         String invitationToken = UUID.randomUUID().toString();
         Invitation invite = new Invitation();
         invite.setEmail(email);
         invite.setToken(invitationToken);
-        invite.setProjectId(projectId);
+//        invite.setProjectId(projectId);
+        Project proj = projectService.getProjectById(projectId);
+        invite.setProject(proj);
         invitationRepository.save(invite);
 
         String invitationLink = "http://localhost:5173/accept_invitation?token=" + invitationToken;

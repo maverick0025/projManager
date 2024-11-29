@@ -1,9 +1,7 @@
 package com.maverick.projectManagementSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +19,9 @@ public class Invitation {
 
     private String token;
     private String email;
-    private Long projectId;
+//    private Long projectId;
+
+    @JsonIgnore
+    @ManyToOne
+    private Project project;
 }
