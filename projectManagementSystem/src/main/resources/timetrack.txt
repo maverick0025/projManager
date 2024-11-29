@@ -10,4 +10,4 @@ Subscription service and razorpay payment gateway integration : 1hr 45 min
 Backend api testing: 2hr 35 min
 
 
-- Cumulative: 19hrs 05 min
+- Cumulative: 19hrs 10 min
