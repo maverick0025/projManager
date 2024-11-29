@@ -60,7 +60,7 @@ public class AuthController {
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(newUser);
-        subscriptionService.createSubscription(user);
+        subscriptionService.createSubscription(savedUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);
