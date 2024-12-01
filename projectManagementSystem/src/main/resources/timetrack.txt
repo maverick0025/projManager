@@ -16,6 +16,6 @@ Backend Cumulative: 19hrs 10 min
 Frontend :
 
    - Proj setup: 1hr
-
+   - Home page: 
 
 Frontend Cumulative: 1hr

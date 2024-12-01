@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ... */
-
 
 @layer base {
   :root {
@@ -62,12 +60,11 @@
   }
 }
 
-
-@layer base {
+@layer base{
   * {
     @apply border-border;
   }
-  body {
+  body{
     @apply bg-background dark text-foreground;
   }
 }
