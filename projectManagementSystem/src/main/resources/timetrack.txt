@@ -17,5 +17,6 @@ Frontend :
 
    - Proj setup: 1hr
    - Home page: 5hr 20 min 
-
-Frontend Cumulative: 6hr 20 min
+   - Project details page: 3 hrs
+	
+Frontend Cumulative: 9hr 20 min
