@@ -7,6 +7,7 @@ import Home from './pages/Home/Home'
 import NavBar from './pages/NavBar/NavBar'
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails'
 import { Route, Routes } from 'react-router-dom'
+import IssueDetails from './pages/IssueDetails/IssueDetails'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/project/:id" element={<ProjectDetails/>}/>
+        <Route path="/project/:projectId/issue/:issueId" element={<IssueDetails/>}/>
         
       </Routes>
     </>
