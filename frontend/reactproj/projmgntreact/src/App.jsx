@@ -10,12 +10,14 @@ import { Route, Routes } from 'react-router-dom'
 import IssueDetails from './pages/IssueDetails/IssueDetails'
 import Upgrade from './pages/Subscription/Subscription'
 import Subscription from './pages/Subscription/Subscription'
+import Auth from './pages/Auth/Auth'
 
 function App() {
 
   return (
     <>
-      <NavBar/>
+    {false? <div>
+    <NavBar/>
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/project/:id" element={<ProjectDetails/>}/>
@@ -23,6 +25,10 @@ function App() {
         <Route path="/upgrade_plan" element={<Subscription/>}/>
         
       </Routes>
+    </div> : <Auth/>
+    
+  }
+      
     </>
   )
 }
