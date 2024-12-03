@@ -18,6 +18,6 @@ Frontend :
    - Proj setup: 1hr
    - Home page: 5hr 20 min 
    - Project details page: 3 hrs
-   - Issue Details: 50 min
+   - Issue Details: 1hr 5 min
 	
-Frontend Cumulative: 10hr 10 min
+Frontend Cumulative: 11hr 15 min
