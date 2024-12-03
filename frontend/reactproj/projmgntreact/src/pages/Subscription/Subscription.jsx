@@ -1,4 +1,5 @@
 import React from "react";
+import SubscriptionCard from "./SubscriptionCard";
 
 const annualPlan = [
   "Add unlimited project",
@@ -34,17 +35,44 @@ const monthlyPlan = [
 
 const Subscription = () => {
   return (
-    
     <div className="p-10">
       <h1 className="text-5xl font-semibold, py-5 pb-16 text-center">
         Pricing
       </h1>
-      <div className="flex flex=col lg:flex-row justify-center items-center gap-9">
 
-        
+      <div className="flex lg:flex-row justify-center items-center gap-9">
+        <SubscriptionCard
+          data={{
+            planName: "Free",
+            features: freePlan,
+            planType: "FREE",
+            price: 0,
+            buttonName: true ? "Current Plan" : "Get Started",
+          }}
+        ></SubscriptionCard>
+
+        <SubscriptionCard
+          data={{
+            planName: "Monthly Paid Plan",
+            features: monthlyPlan,
+            planType: "MONTHLY",
+            price: 79,
+            buttonName: true ? "Current Plan" : "Get Started",
+          }}
+        ></SubscriptionCard>
+
+        <SubscriptionCard
+          data={{
+            planName: "Annual Paid Plan",
+            features: annualPlan,
+            planType: "ANNUALLY",
+            price: 599,
+            buttonName: true ? "Current Plan" : "Get Started",
+          }}
+        ></SubscriptionCard>
+
       </div>
     </div>
-
   );
 };
 
