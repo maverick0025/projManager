@@ -19,5 +19,6 @@ Frontend :
    - Home page: 5hr 20 min 
    - Project details page: 3 hrs
    - Issue Details: 1hr 5 min
+   - subscription model: 30 min
 	
-Frontend Cumulative: 11hr 15 min
+Frontend Cumulative: 11hr 45 min

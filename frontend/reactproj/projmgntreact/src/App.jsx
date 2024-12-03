@@ -8,6 +8,8 @@ import NavBar from './pages/NavBar/NavBar'
 import ProjectDetails from './pages/ProjectDetails/ProjectDetails'
 import { Route, Routes } from 'react-router-dom'
 import IssueDetails from './pages/IssueDetails/IssueDetails'
+import Upgrade from './pages/Subscription/Subscription'
+import Subscription from './pages/Subscription/Subscription'
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/project/:id" element={<ProjectDetails/>}/>
         <Route path="/project/:projectId/issue/:issueId" element={<IssueDetails/>}/>
+        <Route path="/upgrade_plan" element={<Subscription/>}/>
         
       </Routes>
     </>
