@@ -28,7 +28,7 @@
   justify-content: center;
   align-items: center;
 }
-@keyframes rotating {
+/* @keyframes rotating {
   0%
   {
       --a:0deg;
@@ -38,7 +38,7 @@
       --a: 360deg;
   }
   
-}
+} */
 .box::before{
   content:"";
   position: absolue;
@@ -83,11 +83,11 @@
   min-height: 100vh;
   background: #25252b;
 }
-@property --a{
+/* @property --a{
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
-}
+} */
 .box{
   position: relative;
   
@@ -100,7 +100,7 @@
   justify-content: center;
   align-items: center;
 }
-@keyframes rotating {
+/* @keyframes rotating {
   0%
   {
       --a:0deg;
@@ -110,13 +110,13 @@
       --a: 360deg;
   }
   
-}
+} */
 .box::before{
   content:"";
   position: absolue;
   width: 100%;
   height: 100%;
-  background: repeating-conic-gradient(from var(--a), #0715e2 0%, #d50633 5%, transparent 5%, transparent 40%, #99ed08 50%);
+  background: repeating-conic-gradient(from var(--a), #0715e2 0%, #d50633 50%, transparent 5%, transparent 40%, #99ed08 50%);
   filter: drop-shadow(0 15px 50px #000);
   border-radius: 20px;
   animation: rotating 4s linear infinite;
