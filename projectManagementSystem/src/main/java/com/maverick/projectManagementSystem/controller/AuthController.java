@@ -50,6 +50,8 @@ public class AuthController {
             AuthResponse resp = new AuthResponse();
             resp.setMessage("User Already registered");
             resp.setJwt("Login to get JWT");
+
+
             return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
 //            throw new Exception("User already registered. Try sign in.");
         }

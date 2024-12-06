@@ -15,10 +15,17 @@ import {
 } from "../../components/ui/dropdown-menu";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../src/context/AuthContext";
 
 const NavBar = () => {
     
     const navigate=useNavigate()
+    const {logout} = useAuth();
+
+    const logoutfunction= async()=>{
+      console.log("loggin out");
+      logout();
+    }
 
     return (
     <div className="border-b py-4 px-5 flex items-center justify-between">
@@ -50,7 +57,7 @@ const NavBar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>logout()}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <p> Bleh! </p>
