@@ -35,19 +35,19 @@ const Login = () => {
 
       // Assuming the response contains user data and token
       // Adjust this based on your actual backend response structure
-      const { token, user } = response.data;
+      console.log(response.data["jwt"]);
+      // const { token } = response.data["jwt"];
 
       // Use login from AuthContext to set authentication state
-      login(token);
+      login(response.data["jwt"]);
 
       // Navigate to home page
       navigate("/");
 
     } catch (error) {
-      console.error("API error:", error);
-      const mess = error.response.data.message;
       if (!toast.isActive(toastId.current)) {
-        toastId.current = toast(mess);
+        toastId.current = toast(error.response.data["message"]);
+        ;
       }
     }
   };
@@ -108,3 +108,4 @@ const Login = () => {
 };
 
 export default Login;
+

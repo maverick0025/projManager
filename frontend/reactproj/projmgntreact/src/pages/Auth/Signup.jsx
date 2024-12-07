@@ -37,19 +37,12 @@ const Signup = () => {
         password: data.password,
       });
 
-      // Assuming the response contains user data and token
-      // Adjust this based on your actual backend response structure
-      const { token, user } = response.data;
+      login(response.data["jwt"]);
 
-      // Use login from AuthContext to set authentication state
-      login(token);
-
-      // Navigate to home page
       navigate("/");
     } catch (error) {
-      console.error("API error:", error);
       if (!toast.isActive(toastId.current)) {
-        toastId.current = toast("User already registered. Please sign in!");
+        toastId.current = toast(error.response.data["message"]);
       }
     }
   };
@@ -57,7 +50,9 @@ const Signup = () => {
   return (
     <>
       <div className="space-y-5">
-        <h1 className="justify-center text-center font-serif text-xl">Register</h1>
+        <h1 className="justify-center text-center font-serif text-xl">
+          Register
+        </h1>
         <Form {...form}>
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
@@ -120,9 +115,6 @@ const Signup = () => {
           </form>
         </Form>
         <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          transition={Slide}
           className="text-center"
         />
       </div>

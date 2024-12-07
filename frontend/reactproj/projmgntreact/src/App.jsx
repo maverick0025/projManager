@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./pages/Home/Home";
 import NavBar from "./pages/NavBar/NavBar";
 import ProjectDetails from "./pages/ProjectDetails/ProjectDetails";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import IssueDetails from "./pages/IssueDetails/IssueDetails";
 import Upgrade from "./pages/Subscription/Subscription";
 import Subscription from "./pages/Subscription/Subscription";
@@ -37,9 +37,7 @@ function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      {/* <BrowserRouter> */}
         <AppRoutes />
-      {/* </BrowserRouter> */}
     </AuthProvider>
   );
 }

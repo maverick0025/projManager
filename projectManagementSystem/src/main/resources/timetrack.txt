@@ -23,4 +23,4 @@ Frontend :
    - auth login, signup: 1 hr 	
 Frontend Cumulative: 12hr 45 min
 
-integration: 3hrs 30 min
+integration: 4hrs 0 min

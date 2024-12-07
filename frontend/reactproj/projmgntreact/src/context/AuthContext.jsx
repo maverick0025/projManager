@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     setIsAuthenticated(true);
     // setUser(userData);
+    console.log("inside authcontext login"+ token);
     localStorage.setItem('token', token);
   };
 
