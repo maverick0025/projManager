@@ -45,15 +45,16 @@ const Login = () => {
 
     } catch (error) {
       console.error("API error:", error);
+      const mess = error.response.data.message;
       if (!toast.isActive(toastId.current)) {
-        toastId.current = toast("Something horribly went wrong :(");
+        toastId.current = toast(mess);
       }
     }
   };
 
   return (
     <div className="space-y-5">
-        <h1>Register</h1>
+        <h1 className="justify-center text-center font-serif text-xl">Login</h1>
       <Form {...form}>
         <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -100,7 +101,7 @@ const Login = () => {
       <ToastContainer
       autoClose={5000}
       transition={Slide}
-      className="text-center"
+      className="text-center justify-between"
       />
     </div>
   );

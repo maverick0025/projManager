@@ -17,10 +17,9 @@ import { useAuth } from "../../../src/context/AuthContext";
 const baseUrl = "http://www.localhost:5454/auth/signup";
 
 const Signup = () => {
-
-  const {login}=useAuth();
+  const { login } = useAuth();
   const toastId = useRef(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -56,77 +55,78 @@ const Signup = () => {
   };
 
   return (
-    <div className="space-y-5">
-      <h1>Register</h1>
-      <Form {...form}>
-        <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="text"
-                    className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="Enter your email..."
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <>
+      <div className="space-y-5">
+        <h1 className="justify-center text-center font-serif text-xl">Register</h1>
+        <Form {...form}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      className="border w-full border-gray-700 py-5 px-5"
+                      placeholder="Enter your email..."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="text"
-                    className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="Enter password..."
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      className="border w-full border-gray-700 py-5 px-5"
+                      placeholder="Enter password..."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="fullName"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="text"
-                    className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="Enter your full name"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      className="border w-full border-gray-700 py-5 px-5"
+                      placeholder="Enter your full name"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <Button type="submit" className="w-full mt-5">
-            Register!
-          </Button>
-        </form>
-        
+            <Button type="submit" className="w-full mt-5">
+              Register!
+            </Button>
+          </form>
+        </Form>
         <ToastContainer
-         autoClose={5000}
-         transition={Slide}
-         className="text-center"
-         />
-         
-      </Form>
-    </div>
+          position="top-right"
+          autoClose={5000}
+          transition={Slide}
+          className="text-center"
+        />
+      </div>
+    </>
   );
 };
 
