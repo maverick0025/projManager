@@ -3,34 +3,58 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 // Create the AuthContext
 const AuthContext = createContext(null);
 
+const baseUrl="http://www.localhost:5454/api/users/profile"
+
 // AuthProvider component
 export const AuthProvider = ({ children }) => {
-  // State for tracking authentication
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-//   const [user, setUser] = useState(null);
 
   // Check for existing token on initial load
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      // You might want to validate the token with your backend here
+    if(token){
       setIsAuthenticated(true);
+      fetchUserProfile(token);
     }
   }, []);
 
+  const fetchUserProfile = ( async (token)=>{
+    try {
+      const response = await fetch(baseUrl, {
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('userEmail', data.email);
+        console.log('User details fetched:', data);
+      } else {
+        console.error('Failed to fetch user details:', response.status);
+        logout(); // Logout if token is invalid
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+      logout(); // Logout in case of an error
+    }
+  })
+
   // Login function
-  const login = (token) => {
+  const login = async (token) => {
+  
     setIsAuthenticated(true);
-    // setUser(userData);
-    console.log("inside authcontext login"+ token);
     localStorage.setItem('token', token);
+    await fetchUserProfile(token);
   };
 
   // Logout function
   const logout = () => {
     setIsAuthenticated(false);
-    // setUser(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('userEmail')
   };
 
   // Value to be provided to consumers
