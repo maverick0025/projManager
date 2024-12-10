@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('userEmail', data.email);
-        console.log('User details fetched:', data);
+        // console.log('User details fetched:', data);
       } else {
         console.error('Failed to fetch user details:', response.status);
         logout(); // Logout if token is invalid

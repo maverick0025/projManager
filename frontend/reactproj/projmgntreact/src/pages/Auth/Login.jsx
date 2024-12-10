@@ -33,15 +33,10 @@ const Login = () => {
         password: data.password,
       });
 
-      // Assuming the response contains user data and token
-      // Adjust this based on your actual backend response structure
-      console.log(response.data["jwt"]);
-      // const { token } = response.data["jwt"];
+      // console.log(response.data["jwt"]);
 
-      // Use login from AuthContext to set authentication state
       login(response.data["jwt"]);
 
-      // Navigate to home page
       navigate("/");
 
     } catch (error) {

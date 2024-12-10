@@ -4,13 +4,14 @@ import {
   MixerHorizontalIcon,
 } from "@radix-ui/react-icons";
 import { Button } from "../../components/ui/button";
-import React from "react";
+import React, { useEffect } from "react";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { useState } from "react";
 import ProjectCard from "../Project/ProjectCard";
+import axios from "axios";
 
 export const tags = [
   "all",
@@ -26,8 +27,32 @@ export const tags = [
   "java",
 ];
 
+const baseUrl = "http://www.localhost:5454/api/projects/";
+
 const ProjectList = () => {
   const [keyword, setKeyword] = useState("");
+  const [projs, setProjs] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userEmail = localStorage.getItem("useEmail");
+
+    fetchUserProjects(token, userEmail);
+  }, []);
+
+  const fetchUserProjects = async (token, userEmail) => {
+    try {
+      const response = await axios.get(baseUrl, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+      setProjs(response["data"])
+      console.log(response["data"])
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleFilterChange = (filtered, value) => {
     console.log("filtered: " + filtered + ", value:" + value);
@@ -124,7 +149,7 @@ const ProjectList = () => {
             <div className="space-y-5 min-h-[74vh]">
               {keyword
                 ? [1, 1, 1].map((item) => <ProjectCard key={item} />)
-                : [1, 1, 1, 1,1].map((item) => <ProjectCard key={item} />)}
+                : projs.map((item) => <ProjectCard key={item} project={item} />)}
             </div>
           </div>
         </section>

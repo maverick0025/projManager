@@ -13,9 +13,36 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import InviteUserForm from "./InviteUserForm";
 import IssueList from "./IssueList";
 import ChatBox from "./ChatBox";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ProjectDetails = () => {
   const handleProjectInvitation = () => {};
+  const [projdet, setProjdet] = useState(null);
+  const location = useLocation();
+
+  const baseUrl = "http://www.localhost:5454/api/projects/";
+
+  useEffect(()=>{
+    const currentProjectId = location.state.id;
+    const token = localStorage.getItem('token');
+    fetchCurrentProjectDetails(currentProjectId, token);
+  })
+
+  const fetchCurrentProjectDetails= async (projId, token)=>{
+      try{
+        const response = await axios.get(`${baseUrl}+${projId}`,{
+          headers:{
+            'Authorization': token
+          },
+        });
+        console.log(response);
+        setProjdet(response["data"]);
+      }catch(error){
+        console.log(error)
+      }
+  }
 
   return (
     <>
@@ -25,24 +52,25 @@ const ProjectDetails = () => {
           <ScrollArea className="h-screen lg:w-[65%] pr-2">
             <div className="text-gray-400 pb-10 w-full">
               <h1 className="text-lg font-semibold pb-5">
-                Create Ecommerce project details page
+                {projdet.name}
+                
               </h1>
               <div className="space-y-5 pb-5 text-sm">
                 <p className="w-full md:max-w-lg lg:max-w-xl ">
-                  description...........
+                  {projdet.description}
                 </p>
 
                 <div className="flex">
                   <p className="w-36"> Project Lead: </p>
-                  <p>Bleh </p>
+                  <p>{projdet.owner.fullName} </p>
                 </div>
 
                 <div className="flex">
                   <p className="w-36">Members:</p>
                   <div className="flex gap-2 items-center">
-                    {[1, 1, 1, 1].map((item) => (
+                    {projdet.team.map((item) => (
                       <Avatar className="cursor-pointer ">
-                        <AvatarFallback>B</AvatarFallback>
+                        <AvatarFallback>{(item.fullName[0])}</AvatarFallback>
                       </Avatar>
                     ))}
                     <div>

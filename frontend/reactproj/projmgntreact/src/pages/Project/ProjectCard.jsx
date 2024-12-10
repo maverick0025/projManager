@@ -11,21 +11,21 @@ import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 import { useNavigate } from "react-router-dom";
 
-const ProjectCard = () => {
+const ProjectCard = ({project}) => {
   const navigate = useNavigate()
-
+  
   return (
     <Card className="p-5 w-full lg:max-w-3xl">
       <div className="space y-5">
         <div className="space-y-2">
           <div className="flex justify-between">
             <div className="flex items-center gap-5">
-              <h1 onClick={()=>navigate("/project/3")} className="cursor-pointer font-bold text-lg"
+              <h1 onClick={()=>navigate(`/project/${project.id}`,{state:{id:project.id}})} className="cursor-pointer font-bold text-lg"
               >
-                Create Ecommerce project
+                {project.name}
               </h1>
               <DotFilledIcon />
-              <p className="text-sm text-gray-400">full stack</p>
+              <p className="text-sm text-gray-400">{project.category}</p>
             </div>
             <div>
               <DropdownMenu>
@@ -41,12 +41,12 @@ const ProjectCard = () => {
               </DropdownMenu>
             </div>
           </div>
-          <p className="text-gray-500 text-sm">Hello world. Whatcha doin?</p>
+          <p className="text-gray-500 text-sm">{project.description}</p>
         </div>
         <div className="flex flex-wrap gap-2 items-center">
-          {[1, 1, 1, 1].map((item) => (
+          {(project.tags).map((item) => (
             <Badge key={item} variant="outline">
-              frontend
+              {item}
             </Badge>
           ))}
         </div>
