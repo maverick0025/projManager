@@ -5,8 +5,8 @@ import { Button } from "../../components/ui/button";
 import "./Auth.css";
 
 const Auth = () => {
-  const [active, setActive] = useState(true);
-
+  const [active, setActive] = useState(false);
+  
   return (
     <>
       <div className="loginContainer">

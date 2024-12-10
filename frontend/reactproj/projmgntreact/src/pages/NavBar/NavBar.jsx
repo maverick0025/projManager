@@ -57,7 +57,7 @@ const NavBar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={()=>logout()}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>logoutfunction()}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <p> Bleh! </p>

@@ -52,27 +52,29 @@ const ProjectDetails = () => {
           <ScrollArea className="h-screen lg:w-[65%] pr-2">
             <div className="text-gray-400 pb-10 w-full">
               <h1 className="text-lg font-semibold pb-5">
-                {projdet.name}
+                {projdet ? projdet.name : "project name"}
                 
               </h1>
               <div className="space-y-5 pb-5 text-sm">
                 <p className="w-full md:max-w-lg lg:max-w-xl ">
-                  {projdet.description}
+                  {projdet ? projdet.description : "description..."}
                 </p>
 
                 <div className="flex">
                   <p className="w-36"> Project Lead: </p>
-                  <p>{projdet.owner.fullName} </p>
+                  <p>{projdet ? projdet.owner.fullName : "owner name..."} </p>
                 </div>
 
                 <div className="flex">
                   <p className="w-36">Members:</p>
                   <div className="flex gap-2 items-center">
-                    {projdet.team.map((item) => (
+                    {projdet? projdet.team.map((item) => (
                       <Avatar className="cursor-pointer ">
-                        <AvatarFallback>{(item.fullName[0])}</AvatarFallback>
+                        <AvatarFallback>{(item.fullName[0] ? item.fullName[0].toUpperCase() : "S")}</AvatarFallback>
                       </Avatar>
-                    ))}
+                    )) : [1,1].map((item)=>{
+                      {item}
+                    })}
                     <div>
                       <Dialog>
                         <DialogTrigger>
@@ -99,7 +101,9 @@ const ProjectDetails = () => {
 
                 <div className="flex">
                   <p className="w-36">Category:</p>
-                  <p>Backend</p>
+                  <p>
+                    {projdet? projdet.category : "Fullstack"}
+                  </p>
                 </div>
 
                 <div className="flex">
