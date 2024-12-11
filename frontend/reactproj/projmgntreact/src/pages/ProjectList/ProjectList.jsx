@@ -63,18 +63,18 @@ const ProjectList = () => {
   };
 
   const handleSearchChange = async (e) => {
-    console.log(e.target.value);
-    const search = e.target.value;
     setKeyword(e.target.value);
-    console.log("searching for : " +  search);
-    //search projects axios get api
+    console.log("searching for : " +  keyword);
     const toke = localStorage.getItem('token')
-    fetchKeywordProjects(search, toke);
+
+    //search projects axios get api
+
+    fetchKeywordProjects(toke);
   };
 
-  const fetchKeywordProjects = async(search, token)=>{
+  const fetchKeywordProjects = async(token)=>{
     try {
-      const response = await axios.get(`${baseUrl}search?keyword=${search}`, {
+      const response = await axios.get(`${baseUrl}search?keyword=${keyword}`, {
         headers:{
           'Authorization': token,
         },
