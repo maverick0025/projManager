@@ -31,7 +31,9 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         System.out.println(jwt);
         //Bearer jwt
         if(jwt != null){
-            jwt = jwt.substring(7); //need to remove it from hardcoding. preferrably use a BEARER constant and get the index from it.
+            if(jwt.startsWith("Bearer")){
+                jwt = jwt.substring(7); //need to remove it from hardcoding. preferrably use a BEARER constant and get the index from it.
+            }
 
             try{
                 SecretKey key = Keys.hmacShaKeyFor(JwtConstants.SECRET_KEY.getBytes());
