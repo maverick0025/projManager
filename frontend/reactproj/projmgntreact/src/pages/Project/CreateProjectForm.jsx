@@ -64,6 +64,7 @@ const CreateProjectForm = () => {
       console.log(response.data)
       toast("New project created!")
       navigate("/", {replace:true});
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (!toast.isActive(toastId.current)) {

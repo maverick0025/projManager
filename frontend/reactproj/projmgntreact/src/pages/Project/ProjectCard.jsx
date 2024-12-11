@@ -28,7 +28,8 @@ const ProjectCard = ({project}) => {
       })
       console.log(response.data["message"]);
       toast(response.data["message"])
-      navigate(".", {replace:true});
+      navigate("/");
+      window.location.reload();
 
       console.log("deleted proj id: "+ project.id)      
     } catch (error) {
