@@ -7,7 +7,7 @@ import {
   FormMessage,
 } from "../../components/ui/form";
 import { Input } from "../../components/ui/input";
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/ui/button";
 import {
@@ -19,10 +19,15 @@ import {
 } from "../../components/ui/select";
 import { tags } from "../ProjectList/ProjectList";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 
 const CreateProjectForm = () => {
+    const baseUrl = "http://www.localhost:5454/api/projects";
 
+    // const toastId = useRef(null);
     const handleTagsChange=(newValue)=>{
         const currentTags=form.getValues("tags");
         const updatedTags= currentTags.includes(newValue)?
@@ -39,9 +44,34 @@ const CreateProjectForm = () => {
       tags: ["javascript", "react"],
     },
   });
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log("create project data: ", data);
+  const onSubmit =  async (data) => {
+    // console.log("create project data: ", data);
+
+    try {
+      const response = await axios.post(baseUrl, {
+        name: data.name,
+        description: data.description,
+        category: data.category,
+        tags:data.tags
+      },{
+        headers:{
+          'Authorization': token
+        },
+      });
+      console.log(response.data)
+      toast("New project created!")
+      navigate("/", {replace:true});
+    } catch (error) {
+      console.log(error);
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast(error.response.data["message"]);
+      }
+    }
+
+
   };
 
   return (

@@ -11,14 +11,14 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Slide, ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../../../src/context/AuthContext";
+import { Toaster, toast } from "react-hot-toast";
 
 const baseUrl = "http://www.localhost:5454/auth/signup";
 
 const Signup = () => {
   const { login } = useAuth();
-  const toastId = useRef(null);
+  // const toastId = useRef(null);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -41,9 +41,9 @@ const Signup = () => {
 
       navigate("/");
     } catch (error) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast(error.response.data["message"]);
-      }
+
+      toast(error.response.data["message"])
+      
     }
   };
 
@@ -114,9 +114,7 @@ const Signup = () => {
             </Button>
           </form>
         </Form>
-        <ToastContainer
-          className="text-center"
-        />
+        <Toaster/>
       </div>
     </>
   );

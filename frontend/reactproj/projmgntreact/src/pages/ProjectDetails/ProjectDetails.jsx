@@ -37,7 +37,7 @@ const ProjectDetails = () => {
             'Authorization': token
           },
         });
-        console.log(response);
+        // console.log(response);
         setProjdet(response["data"]);
       }catch(error){
         console.log(error)

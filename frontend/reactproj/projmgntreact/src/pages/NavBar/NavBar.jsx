@@ -16,6 +16,7 @@ import {
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../src/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const NavBar = () => {
     
@@ -45,7 +46,11 @@ const NavBar = () => {
         </Dialog>
         <Button variant="ghost" onClick={()=>navigate("/upgrade_plan")}> Upgrade</Button>
       </div>
-      <div className="items-center flex gap-3">
+      <div className="flex items-center">
+
+        <Toaster/>
+      </div>
+      <div className="items-center flex gap-3 justify-start">
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Button

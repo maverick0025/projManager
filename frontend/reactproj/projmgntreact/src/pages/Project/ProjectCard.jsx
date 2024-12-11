@@ -10,9 +10,33 @@ import {
 import { Button } from "../../components/ui/button";
 import { Badge } from "../../components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ProjectCard = ({project}) => {
   const navigate = useNavigate()
+  const baseUrl = "http://www.localhost:5454/api/projects/"
+  const token = localStorage.getItem('token');
+
+  const deleteProject = async ()=>{
+      console.log("deleting proj")
+    try {
+      const response = await axios.delete(`${baseUrl}${project.id}`, {
+        headers: {
+          'Authorization': token
+        },
+      })
+      console.log(response.data["message"]);
+      toast(response.data["message"])
+      navigate(".", {replace:true});
+
+      console.log("deleted proj id: "+ project.id)      
+    } catch (error) {
+      console.log(error);
+    };
+  
+    
+  }
   
   return (
     <Card className="p-5 w-full lg:max-w-3xl">
@@ -35,8 +59,8 @@ const ProjectCard = ({project}) => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>Update</DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem  >Update</DropdownMenuItem>
+                  <DropdownMenuItem onClick={()=> deleteProject()} >Delete</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

@@ -1,4 +1,3 @@
-import { ToastContainer, toast, Slide } from "react-toastify";
 import { useAuth } from "../../../src/context/AuthContext";
 import { Button } from "../../components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../../components/ui/form";
@@ -7,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 
 const baseUrl = "http://www.localhost:5454/auth/signin";
@@ -14,7 +14,7 @@ const baseUrl = "http://www.localhost:5454/auth/signin";
 const Login = () => {
 
   const {login} = useAuth();
-  const toastId = useRef(null);
+  // const toastId = useRef(null);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -40,10 +40,8 @@ const Login = () => {
       navigate("/");
 
     } catch (error) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast(error.response.data["message"]);
-        ;
-      }
+
+      toast(error.response.data["message"])
     }
   };
 
@@ -93,11 +91,7 @@ const Login = () => {
             </Button>
         </form>
       </Form>
-      <ToastContainer
-      autoClose={5000}
-      transition={Slide}
-      className="text-center justify-between"
-      />
+      <Toaster/>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const ChatBox = () => {
         <h1 className="border-b p-5">Chat Box</h1>
 
         <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
-          {[1, 1, 1, 1].map((item, index) =>
+          {[1, 12, 13].map((item, index) =>
             index % 2 == 0 ? (
               <div
                 key={item}

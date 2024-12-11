@@ -19,7 +19,7 @@ const IssueList = ({title, status}) => {
                 </CardHeader>
                 <CardContent className="px-2">
                     <div className='space-y-2'>
-                        {[1,1,1].map((item=><IssueCard key={item}/>))}
+                        {[1, 12, 14].map((item=><IssueCard key={item}/>))}
 
                     </div>
                 </CardContent>

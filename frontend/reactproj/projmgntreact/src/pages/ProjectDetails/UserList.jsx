@@ -7,7 +7,7 @@ const UserList = () => {
         <div className="border rounded-md">
           <p className="py-2 px-3">{"Ram" || "Unassignee"}</p>
         </div>
-        {[1, 1, 1, 1].map((item) => (
+        {[1, 11, 111, 101].map((item) => (
           <div key={item} className="py-2 group hover:bgslate-800 cursor-pointer flex items-center rounded-md space-x-4  px-4 border ">
             <Avatar>
               <AvatarFallback>R</AvatarFallback>

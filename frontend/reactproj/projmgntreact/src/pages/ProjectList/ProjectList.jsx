@@ -148,8 +148,8 @@ const ProjectList = () => {
           <div>
             <div className="space-y-5 min-h-[74vh]">
               {keyword
-                ? [1, 1, 1].map((item) => <ProjectCard key={item} />)
-                : projs.map((item) => <ProjectCard key={item} project={item} />)}
+                ? [1].map((item) => <ProjectCard key={item} />)
+                : projs.map((item) => <ProjectCard key={item} project={item}/>)}
             </div>
           </div>
         </section>
