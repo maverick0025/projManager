@@ -12,6 +12,7 @@ import { Input } from "../../components/ui/input";
 import { useState } from "react";
 import ProjectCard from "../Project/ProjectCard";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const tags = [
   "all",
@@ -32,6 +33,7 @@ const baseUrl = "http://www.localhost:5454/api/projects/";
 const ProjectList = () => {
   const [keyword, setKeyword] = useState("");
   const [projs, setProjs] = useState([]);
+  const [searchprojs, setSearchprojs] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -51,6 +53,8 @@ const ProjectList = () => {
       console.log(response["data"])
     } catch (error) {
       console.log(error);
+      toast("Error in fetching projects")
+      
     }
   };
 
@@ -58,10 +62,31 @@ const ProjectList = () => {
     console.log("filtered: " + filtered + ", value:" + value);
   };
 
-  const handleSearchChange = (search) => {
+  const handleSearchChange = async (e) => {
+    console.log(e.target.value);
+    const search = e.target.value;
     setKeyword(e.target.value);
-    console.log("searching for : " + search);
+    console.log("searching for : " +  search);
+    //search projects axios get api
+    const toke = localStorage.getItem('token')
+    fetchKeywordProjects(search, toke);
   };
+
+  const fetchKeywordProjects = async(search, token)=>{
+    try {
+      const response = await axios.get(`${baseUrl}search?keyword=${search}`, {
+        headers:{
+          'Authorization': token,
+        },
+      });
+      console.log(response["data"])
+      setSearchprojs(response["data"])
+    } catch (error) {
+      console.log(error)
+      toast("Error in fetching searched keyword projects");
+    }
+  }
+
 
   return (
     <>
@@ -141,6 +166,7 @@ const ProjectList = () => {
                 className="40% px-9"
                 placeholder="Search project"
                 onChange={handleSearchChange}
+                // onSubmit={handleSearchChange}
               />
               <MagnifyingGlassIcon className="absolute top-3 left-4" />
             </div>
@@ -148,7 +174,7 @@ const ProjectList = () => {
           <div>
             <div className="space-y-5 min-h-[74vh]">
               {keyword
-                ? [1].map((item) => <ProjectCard key={item} />)
+                ? searchprojs.map((item) => <ProjectCard key={item} project={item} />)
                 : projs.map((item) => <ProjectCard key={item} project={item}/>)}
             </div>
           </div>
