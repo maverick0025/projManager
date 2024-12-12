@@ -13,36 +13,69 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import InviteUserForm from "./InviteUserForm";
 import IssueList from "./IssueList";
 import ChatBox from "./ChatBox";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ProjectDetails = () => {
   const handleProjectInvitation = () => {};
   const [projdet, setProjdet] = useState(null);
+  const [chatmessages, setChatmessages] = useState([]);
+  const navigate = useNavigate();
+
   const location = useLocation();
 
   const baseUrl = "http://www.localhost:5454/api/projects/";
+  const baseUrlChat= "http://www.localhost:5454/api/messages/";
 
   useEffect(()=>{
     const currentProjectId = location.state.id;
     const token = localStorage.getItem('token');
     fetchCurrentProjectDetails(currentProjectId, token);
-  })
+    fetchChatMessages(currentProjectId, token);
+  },[]);
 
   const fetchCurrentProjectDetails= async (projId, token)=>{
       try{
-        const response = await axios.get(`${baseUrl}+${projId}`,{
+        const response = await axios.get(`${baseUrl}${projId}`,{
           headers:{
             'Authorization': token
           },
         });
-        // console.log(response);
+        console.log(response);
         setProjdet(response["data"]);
+        
+        // console.log(projdet["owner"].id)
       }catch(error){
         console.log(error)
       }
+      // console.log("-------")
+      // console.log(projdet)
   }
+
+  const fetchChatMessages = async (projId, token) => {
+    console.log("authtoken: "+ token );
+    try {
+      const response = await axios.get(`${baseUrlChat}chat/${projId}`, {
+        headers: {
+          'Authorization': token,
+        },
+      });
+      // console.log("-----0-------")
+      // console.log(response.data);
+      
+      setChatmessages(response.data ? response.data : response["data"])
+      // console.log("chat messages set");
+      // window.location.reload();
+    } catch (error) {
+      console.log(error);
+      toast("Error in fetching chat. Lo siento :<");
+    }
+    console.log("---------+--------")
+    console.log(chatmessages);
+
+  };
 
   return (
     <>
@@ -69,7 +102,7 @@ const ProjectDetails = () => {
                   <p className="w-36">Members:</p>
                   <div className="flex gap-2 items-center">
                     {projdet? projdet.team.map((item) => (
-                      <Avatar className="cursor-pointer ">
+                      <Avatar key ={item} className="cursor-pointer ">
                         <AvatarFallback>{(item.fullName[0] ? item.fullName[0].toUpperCase() : "S")}</AvatarFallback>
                       </Avatar>
                     )) : [1,1].map((item)=>{
@@ -125,7 +158,7 @@ const ProjectDetails = () => {
             </div>
           </ScrollArea>
             <div className="lg:w-[35%] rounded-md sticky r-5 top-10">
-            <ChatBox />
+            <ChatBox projId={projdet? projdet.id : 0} sendrId={ projdet? projdet.owner.id : 0} chats={chatmessages}/>
             </div>
         </div>
       </div>

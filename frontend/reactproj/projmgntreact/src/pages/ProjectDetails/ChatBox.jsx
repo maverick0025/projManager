@@ -3,18 +3,55 @@ import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import { Button } from "../../components/ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const ChatBox = () => {
+const ChatBox = ({ projId, sendrId, chats }) => {
+  const baseUrl = "http://www.localhost:5454/api/messages/";
 
-    const [message, setMessage]=useState("");
-    const handleSendMessage=()=>{
-        console.log("sending message : "+ message)
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const [authtoken, setAuthtoken] = useState("");
+
+  useEffect(() => {
+    setAuthtoken(localStorage.getItem("token"));
+    console.log("logging from use effect!");
+  }, []);
+
+
+
+  const handleSendMessage = async () => {
+    console.log(authtoken);
+    try {
+      // console.log(sendrId + ", " + projId + ", " + message);
+      const response = await axios.post(
+        `${baseUrl}send`,
+        {
+          senderId: sendrId,
+          projectId: projId,
+          content: message,
+        },
+        {
+          headers: {
+            Authorization: authtoken,
+          },
+        }
+      );
+      // window.location.reload();
+    } catch (error) {
+      console.log(error);
+      toast(error.response.data);
     }
+    console.log("sending message : " + message);
+    setMessage("");
+    window.location.reload()
+  };
 
-    const handleMessageChange=(e)=>{
-        setMessage(e.target.value);
-    }
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
 
   return (
     <div className="sticky">
