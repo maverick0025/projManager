@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { PlusIcon, QuestionMarkIcon } from "@radix-ui/react-icons";
 import InviteUserForm from "./InviteUserForm";
 import IssueList from "./IssueList";
 import ChatBox from "./ChatBox";
@@ -17,76 +17,83 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useCallback } from "react";
 
 const ProjectDetails = () => {
   const handleProjectInvitation = () => {};
   const [projdet, setProjdet] = useState(null);
-  const [chatmessages, setChatmessages] = useState([]);
+  const [chatmessages, setChatmessages] = useState(null);
   const navigate = useNavigate();
+  const [token, setToken] = useState("");
+  const [pjid, setPjid] = useState(null);
 
   const location = useLocation();
 
   const baseUrl = "http://www.localhost:5454/api/projects/";
-  const baseUrlChat= "http://www.localhost:5454/api/messages/";
+  const baseUrlChat = "http://www.localhost:5454/api/messages/";
 
-  useEffect(()=>{
-    const currentProjectId = location.state.id;
-    const token = localStorage.getItem('token');
-    fetchCurrentProjectDetails(currentProjectId, token);
-    fetchChatMessages(currentProjectId, token);
-  },[]);
-
-  const fetchCurrentProjectDetails= async (projId, token)=>{
-      try{
-        const response = await axios.get(`${baseUrl}${projId}`,{
-          headers:{
-            'Authorization': token
-          },
-        });
-        console.log(response);
-        setProjdet(response["data"]);
-        
-        // console.log(projdet["owner"].id)
-      }catch(error){
-        console.log(error)
-      }
-      // console.log("-------")
-      // console.log(projdet)
-  }
-
-  const fetchChatMessages = async (projId, token) => {
-    console.log("authtoken: "+ token );
+  const fetchCurrentProjectDetails = useCallback(async (projId, token) => {
     try {
-      const response = await axios.get(`${baseUrlChat}chat/${projId}`, {
+      const response = await axios.get(`${baseUrl}${projId}`, {
         headers: {
-          'Authorization': token,
+          Authorization: token,
         },
       });
-      // console.log("-----0-------")
-      // console.log(response.data);
-      
-      setChatmessages(response.data ? response.data : response["data"])
-      // console.log("chat messages set");
-      // window.location.reload();
+      setProjdet(response.data);
+    } catch (error) {
+      console.log(error);
+      toast("Error in fetching project details :< ");
+    }
+  }, [baseUrl]);
+
+  const fetchChatMessages = useCallback(async (projId, token) => {
+    try {
+      const respch = await axios.get(`${baseUrlChat}chat/${projId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      setChatmessages(respch.data);
     } catch (error) {
       console.log(error);
       toast("Error in fetching chat. Lo siento :<");
     }
-    console.log("---------+--------")
-    console.log(chatmessages);
+  }, [baseUrlChat]);
 
-  };
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (location.state?.id && storedToken) {
+      setPjid(location.state.id);
+      setToken(storedToken);
+    }
+  }, [location.state?.id]);
+
+  // Second useEffect to fetch project details
+  useEffect(() => {
+    if (pjid && token) {
+      fetchCurrentProjectDetails(pjid, token);
+    }
+  }, [pjid, token, fetchCurrentProjectDetails]);
+
+  // Third useEffect to fetch chat messages
+  useEffect(() => {
+    if (pjid && token) {
+      fetchChatMessages(pjid, token);
+    }
+  }, [pjid, token, fetchChatMessages]);
+
+  useEffect(() => {
+    console.log("Chat messages updated:", chatmessages);
+  }, [chatmessages]);
 
   return (
     <>
       <div className="mt-5 lg:px-10 ">
         <div className="lg:flex gap-5 justify-between pb-4">
-          
           <ScrollArea className="h-screen lg:w-[65%] pr-2">
             <div className="text-gray-400 pb-10 w-full">
               <h1 className="text-lg font-semibold pb-5">
                 {projdet ? projdet.name : "project name"}
-                
               </h1>
               <div className="space-y-5 pb-5 text-sm">
                 <p className="w-full md:max-w-lg lg:max-w-xl ">
@@ -101,13 +108,21 @@ const ProjectDetails = () => {
                 <div className="flex">
                   <p className="w-36">Members:</p>
                   <div className="flex gap-2 items-center">
-                    {projdet? projdet.team.map((item) => (
-                      <Avatar key ={item} className="cursor-pointer ">
-                        <AvatarFallback>{(item.fullName[0] ? item.fullName[0].toUpperCase() : "S")}</AvatarFallback>
-                      </Avatar>
-                    )) : [1,1].map((item)=>{
-                      {item}
-                    })}
+                    {projdet
+                      ? projdet.team.map((item) => (
+                          <Avatar key={item} className="cursor-pointer ">
+                            <AvatarFallback>
+                              {item.fullName[0]
+                                ? item.fullName[0].toUpperCase()
+                                : <QuestionMarkIcon/>}
+                            </AvatarFallback>
+                          </Avatar>
+                        ))
+                      : [1, 1].map((item) => {
+                          {
+                            item;
+                          }
+                        })}
                     <div>
                       <Dialog>
                         <DialogTrigger>
@@ -134,9 +149,7 @@ const ProjectDetails = () => {
 
                 <div className="flex">
                   <p className="w-36">Category:</p>
-                  <p>
-                    {projdet? projdet.category : "Fullstack"}
-                  </p>
+                  <p>{projdet ? projdet.category : "Fullstack"}</p>
                 </div>
 
                 <div className="flex">
@@ -146,20 +159,22 @@ const ProjectDetails = () => {
               </div>
 
               <section>
-                    <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
-                    <div className="lg:flex md:flex gap-3 justify-between py-5">
-                        <IssueList status="pending" title="Todo List"/>
-                        <IssueList status="in_progress" title="In Progress"/>
-                        <IssueList status="done" title="Done"/>
-
-                    </div>
+                <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
+                <div className="lg:flex md:flex gap-3 justify-between py-5">
+                  <IssueList status="pending" title="Todo List" />
+                  <IssueList status="in_progress" title="In Progress" />
+                  <IssueList status="done" title="Done" />
+                </div>
               </section>
-
             </div>
           </ScrollArea>
-            <div className="lg:w-[35%] rounded-md sticky r-5 top-10">
-            <ChatBox projId={projdet? projdet.id : 0} sendrId={ projdet? projdet.owner.id : 0} chats={chatmessages}/>
-            </div>
+          <div className="lg:w-[35%] rounded-md sticky r-5 top-10">
+            {<ChatBox
+              projId={projdet ? projdet.id : 0}
+              sendrId={projdet ? projdet.owner.id : 0}
+              chats={chatmessages}
+            />} 
+          </div>
         </div>
       </div>
     </>
