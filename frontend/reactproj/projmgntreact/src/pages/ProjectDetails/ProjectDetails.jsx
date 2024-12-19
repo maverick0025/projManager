@@ -32,33 +32,39 @@ const ProjectDetails = () => {
   const baseUrl = "http://www.localhost:5454/api/projects/";
   const baseUrlChat = "http://www.localhost:5454/api/messages/";
 
-  const fetchCurrentProjectDetails = useCallback(async (projId, token) => {
-    try {
-      const response = await axios.get(`${baseUrl}${projId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setProjdet(response.data);
-    } catch (error) {
-      console.log(error);
-      toast("Error in fetching project details :< ");
-    }
-  }, [baseUrl]);
+  const fetchCurrentProjectDetails = useCallback(
+    async (projId, token) => {
+      try {
+        const response = await axios.get(`${baseUrl}${projId}`, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setProjdet(response.data);
+      } catch (error) {
+        console.log(error);
+        toast("Error in fetching project details :< ");
+      }
+    },
+    [baseUrl]
+  );
 
-  const fetchChatMessages = useCallback(async (projId, token) => {
-    try {
-      const respch = await axios.get(`${baseUrlChat}chat/${projId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      setChatmessages(respch.data);
-    } catch (error) {
-      console.log(error);
-      toast("Error in fetching chat. Lo siento :<");
-    }
-  }, [baseUrlChat]);
+  const fetchChatMessages = useCallback(
+    async (projId, token) => {
+      try {
+        const respch = await axios.get(`${baseUrlChat}chat/${projId}`, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        setChatmessages(respch.data);
+      } catch (error) {
+        console.log(error);
+        toast("Error in fetching chat. Lo siento :<");
+      }
+    },
+    [baseUrlChat]
+  );
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -77,7 +83,9 @@ const ProjectDetails = () => {
 
   // Third useEffect to fetch chat messages
   useEffect(() => {
+    console.log("3rd use effect");
     if (pjid && token) {
+      console.log("3rd use effect calling fetch chat messages");
       fetchChatMessages(pjid, token);
     }
   }, [pjid, token, fetchChatMessages]);
@@ -112,9 +120,11 @@ const ProjectDetails = () => {
                       ? projdet.team.map((item) => (
                           <Avatar key={item} className="cursor-pointer ">
                             <AvatarFallback>
-                              {item.fullName[0]
-                                ? item.fullName[0].toUpperCase()
-                                : <QuestionMarkIcon/>}
+                              {item.fullName[0] ? (
+                                item.fullName[0].toUpperCase()
+                              ) : (
+                                <QuestionMarkIcon />
+                              )}
                             </AvatarFallback>
                           </Avatar>
                         ))
@@ -169,11 +179,12 @@ const ProjectDetails = () => {
             </div>
           </ScrollArea>
           <div className="lg:w-[35%] rounded-md sticky r-5 top-10">
-            {<ChatBox
-              projId={projdet ? projdet.id : 0}
-              sendrId={projdet ? projdet.owner.id : 0}
-              chats={chatmessages}
-            />} 
+               <ChatBox
+                 projId={projdet ? projdet.id : 0}
+                 sendrId={projdet ? projdet.owner.id : 0}
+                 chats={chatmessages}
+               />
+              
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ const ChatBox = ({ projId, sendrId, chats }) => {
         <h1 className="border-b p-5">Chat Box</h1>
 
         <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
-          {chats.map((item, index) =>
+          { chats? chats.map((item) =>
             ({item}=={loggedmail}) ? (
               <div
                 key={item}
@@ -89,7 +89,7 @@ const ChatBox = ({ projId, sendrId, chats }) => {
                 </Avatar>
               </div>
             )
-          )}
+          ): "No chats"}
         </ScrollArea>
         <div className="relative p-0">
           <Input
