@@ -19,15 +19,11 @@ const ChatBox = ({ projId, sendrId, chats }) => {
   useEffect(() => {
     setLoggedmail(localStorage.getItem('useEmail'));
     setAuthtoken(localStorage.getItem("token"));
-    console.log("logging from use effect!");
   }, []);
-
-
 
   const handleSendMessage = async () => {
     console.log(authtoken);
     try {
-      // console.log(sendrId + ", " + projId + ", " + message);
       const response = await axios.post(
         `${baseUrl}send`,
         {

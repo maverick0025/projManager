@@ -44,6 +44,7 @@ const CreateProjectForm = () => {
       tags: ["javascript", "react"],
     },
   });
+  
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 

@@ -41,8 +41,9 @@ const ProjectDetails = () => {
           },
         });
         setProjdet(response.data);
+        console.log(projdet)
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast("Error in fetching project details :< ");
       }
     },
@@ -59,7 +60,7 @@ const ProjectDetails = () => {
         });
         setChatmessages(respch.data);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         toast("Error in fetching chat. Lo siento :<");
       }
     },
@@ -83,16 +84,10 @@ const ProjectDetails = () => {
 
   // Third useEffect to fetch chat messages
   useEffect(() => {
-    console.log("3rd use effect");
     if (pjid && token) {
-      console.log("3rd use effect calling fetch chat messages");
       fetchChatMessages(pjid, token);
     }
   }, [pjid, token, fetchChatMessages]);
-
-  useEffect(() => {
-    console.log("Chat messages updated:", chatmessages);
-  }, [chatmessages]);
 
   return (
     <>
@@ -150,7 +145,7 @@ const ProjectDetails = () => {
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>Invite User</DialogHeader>
-                          <InviteUserForm></InviteUserForm>
+                          <InviteUserForm projId={projdet? projdet.id : 0}></InviteUserForm>
                         </DialogContent>
                       </Dialog>
                     </div>
@@ -179,12 +174,11 @@ const ProjectDetails = () => {
             </div>
           </ScrollArea>
           <div className="lg:w-[35%] rounded-md sticky r-5 top-10">
-               <ChatBox
-                 projId={projdet ? projdet.id : 0}
-                 sendrId={projdet ? projdet.owner.id : 0}
-                 chats={chatmessages}
-               />
-              
+            <ChatBox
+              projId={projdet ? projdet.id : 0}
+              sendrId={projdet ? projdet.owner.id : 0}
+              chats={chatmessages}
+            />
           </div>
         </div>
       </div>

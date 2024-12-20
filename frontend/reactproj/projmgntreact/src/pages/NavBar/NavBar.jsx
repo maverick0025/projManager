@@ -24,7 +24,6 @@ const NavBar = () => {
     const {logout} = useAuth();
 
     const logoutfunction= async()=>{
-      console.log("loggin out");
       logout();
     }
 

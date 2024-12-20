@@ -15,16 +15,44 @@ import {
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
-const InviteUserForm = () => {
+const InviteUserForm = ({projId}) => {
+  const baseUrl = "http://www.localhost:5454/api/projects/invite";
+
   const form = useForm({
     defaultValues: {
       email: "",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("create project data: ", data);
+  const onSubmit = async (data) => {
+    console.log("create invite user form data: ", data);
+    const token = localStorage.getItem('token')
+
+    try {
+      const response = await axios.post(
+        baseUrl,
+        {
+          email: data.email,
+          projectId: projId,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(response.data);
+      toast("Invitation sent to their registered email!");
+    } catch (error) {
+      console.log(error);
+      toast("Failed to send an invitation. Too bad, you don't know why!")
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast(error.response.data["message"]);
+      }
+    }
   };
 
   return (
@@ -50,11 +78,9 @@ const InviteUserForm = () => {
           />
 
           <DialogClose>
-            
-              <Button type="submit" className="w-full mt-5">
-                Send Invite
-              </Button>
-            
+            <Button type="submit" className="w-full mt-5">
+              Send Invite
+            </Button>
           </DialogClose>
         </form>
       </Form>
