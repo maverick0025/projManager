@@ -11,7 +11,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 
 function AppRoutes() {
   const { isAuthenticated } = useAuth();
-
+// http://localhost:5173/accept_invitation?token=eff15e00-217c-4a04-9c08-8646aa3064b7
   return (
     <>
       {isAuthenticated ? (
@@ -25,6 +25,8 @@ function AppRoutes() {
               element={<IssueDetails />}
             />
             <Route path="/upgrade_plan" element={<Subscription />} />
+            <Route path="/accept_invitation?token=tokk" element={<Home />}/>
+
           </Routes>
         </div>
       ) : (
