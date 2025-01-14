@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useCallback } from "react";
-
+ 
 const ProjectDetails = () => {
   const handleProjectInvitation = () => {};
   const [projdet, setProjdet] = useState(null);
@@ -37,10 +37,11 @@ const ProjectDetails = () => {
       try {
         const response = await axios.get(`${baseUrl}${projId}`, {
           headers: {
-            Authorization: token,
+            Authorization: token, 
           },
         });
         setProjdet(response.data);
+        console.log("current project det: ")
         console.log(projdet)
       } catch (error) {
         // console.log(error);
@@ -56,16 +57,15 @@ const ProjectDetails = () => {
         const respch = await axios.get(`${baseUrlChat}chat/${projId}`, {
           headers: {
             Authorization: token,
-          },
+          }, 
         });
         setChatmessages(respch.data);
-      } catch (error) {
-        // console.log(error);
+      } catch (error) { 
         toast("Error in fetching chat. Lo siento :<");
       }
     },
     [baseUrlChat]
-  );
+  ); 
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -73,7 +73,7 @@ const ProjectDetails = () => {
       setPjid(location.state.id);
       setToken(storedToken);
     }
-  }, [location.state?.id]);
+  }, [location.state?.id]); 
 
   // Second useEffect to fetch project details
   useEffect(() => {
@@ -86,6 +86,8 @@ const ProjectDetails = () => {
   useEffect(() => {
     if (pjid && token) {
       fetchChatMessages(pjid, token);
+      console.log("chat messages: ")
+      console.log(chatmessages)
     }
   }, [pjid, token, fetchChatMessages]);
 
@@ -123,7 +125,7 @@ const ProjectDetails = () => {
                             </AvatarFallback>
                           </Avatar>
                         ))
-                      : [1, 1].map((item) => {
+                      : [1].map((item) => {
                           {
                             item;
                           }

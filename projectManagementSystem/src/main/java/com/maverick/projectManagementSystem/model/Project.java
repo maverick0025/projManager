@@ -42,3 +42,4 @@ public class Project {
     private List<User> team = new ArrayList<>();
 
 }
+

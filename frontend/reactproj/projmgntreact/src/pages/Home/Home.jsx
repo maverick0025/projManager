@@ -6,6 +6,7 @@ const Home = () => {
 
   const baseurl = "http://www.localhost:5173/api/projects/accept_invitation"
   
+  /*
   useEffect(() => {
 
     const [params, setParams]  = useSearchParams();
@@ -40,7 +41,9 @@ const Home = () => {
       }
     }
 
-  };
+  };*/
+
+  
 
   return (
     <div>

@@ -19,7 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
     private String fullName;
+
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //password will not be visible in api response
