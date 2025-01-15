@@ -7,8 +7,8 @@ import { Avatar, AvatarFallback } from '../../components/ui/avatar'
 import UserList from './UserList'
 import { useNavigate } from 'react-router-dom'
 
-const IssueCard = () => {
-  const navigate= useNavigate();
+const IssueCard = ({issue}) => {
+  const navigate= useNavigate(); 
 
     return (
 
@@ -17,7 +17,7 @@ const IssueCard = () => {
             <div className='flex justify-between items-center'>
                 
                 <CardTitle className="cursor-pointer" onClick={()=>navigate("/project/3/issue/10")}>
-                    Create NavBar
+                    {issue.title}
                 </CardTitle>
 
                 <DropdownMenu>

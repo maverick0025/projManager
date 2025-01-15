@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useCallback } from "react";
- 
+
 const ProjectDetails = () => {
   const handleProjectInvitation = () => {};
   const [projdet, setProjdet] = useState(null);
@@ -26,6 +26,7 @@ const ProjectDetails = () => {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
   const [pjid, setPjid] = useState(null);
+  const [issues, setIssues] = useState(null);
 
   const location = useLocation();
 
@@ -37,14 +38,12 @@ const ProjectDetails = () => {
       try {
         const response = await axios.get(`${baseUrl}${projId}`, {
           headers: {
-            Authorization: token, 
+            Authorization: token,
           },
         });
         setProjdet(response.data);
-        console.log("current project det: ")
-        console.log(projdet)
+        setIssues(response.data.issues);
       } catch (error) {
-        // console.log(error);
         toast("Error in fetching project details :< ");
       }
     },
@@ -57,15 +56,15 @@ const ProjectDetails = () => {
         const respch = await axios.get(`${baseUrlChat}chat/${projId}`, {
           headers: {
             Authorization: token,
-          }, 
+          },
         });
         setChatmessages(respch.data);
-      } catch (error) { 
+      } catch (error) {
         toast("Error in fetching chat. Lo siento :<");
       }
     },
     [baseUrlChat]
-  ); 
+  );
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -73,12 +72,14 @@ const ProjectDetails = () => {
       setPjid(location.state.id);
       setToken(storedToken);
     }
-  }, [location.state?.id]); 
+  }, [location.state?.id]);
 
   // Second useEffect to fetch project details
   useEffect(() => {
     if (pjid && token) {
       fetchCurrentProjectDetails(pjid, token);
+      console.log("issues: ")
+      console.log(issues)
     }
   }, [pjid, token, fetchCurrentProjectDetails]);
 
@@ -86,8 +87,6 @@ const ProjectDetails = () => {
   useEffect(() => {
     if (pjid && token) {
       fetchChatMessages(pjid, token);
-      console.log("chat messages: ")
-      console.log(chatmessages)
     }
   }, [pjid, token, fetchChatMessages]);
 
@@ -147,7 +146,9 @@ const ProjectDetails = () => {
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>Invite User</DialogHeader>
-                          <InviteUserForm projId={projdet? projdet.id : 0}></InviteUserForm>
+                          <InviteUserForm
+                            projId={projdet ? projdet.id : 0}
+                          ></InviteUserForm>
                         </DialogContent>
                       </Dialog>
                     </div>
@@ -168,9 +169,27 @@ const ProjectDetails = () => {
               <section>
                 <p className="py-5 border-b text-lg -tracking-wider">Tasks</p>
                 <div className="lg:flex md:flex gap-3 justify-between py-5">
-                  <IssueList status="pending" title="Todo List" />
-                  <IssueList status="in_progress" title="In Progress" />
-                  <IssueList status="done" title="Done" />
+                  <IssueList
+                    status="pending"
+                    title="Todo List"
+                    projId={projdet ? projdet.id : 0}
+                    issues={issues}
+                    token={token}
+                  />
+                  <IssueList
+                    status="in_progress"
+                    title="In Progress"
+                    projId={projdet ? projdet.id : 0}
+                    issues={issues}
+                    token={token}
+                  />
+                  <IssueList
+                    status="done"
+                    title="Done"
+                    projId={projdet ? projdet.id : 0}
+                    issues={issues}
+                    token={token}
+                  />
                 </div>
               </section>
             </div>
